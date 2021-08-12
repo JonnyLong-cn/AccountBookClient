@@ -1,0 +1,51 @@
+.auth{
+  min-height: 100vh;
+  background-color: #CCFFFF;
+  .head{
+    height: 200px;
+    background: url('//s.yezgea02.com/1616032174786/cryptocurrency.png') no-repeat center;
+    background-size: 120%;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    img {
+      width: 34px;
+      margin: 15px 0 0 15px;
+    }
+    .tab {
+      color: #009999;
+      padding: 30px 24px 10px 24px;
+      > span {
+        font-size: 14px;
+        font-weight: bold;
+        &.avtive {
+          font-size: 20px;
+          border-bottom: 2PX solid #009999;
+          padding-bottom: 6px;
+        }
+      }
+    }
+    .form {
+      padding: 0 6px;
+      :global {
+        .za-cell {
+          background-color: transparent;
+          &::after {
+            border-top: none;
+          }
+        }
+      }
+    }
+    .operation {
+      padding: 10px 24px 0 24px;
+      .agree {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        label {
+          margin-left: 10px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ function App() {
    */
   return (
     <Fragment>
-      <ConfigProvider primaryColor="#00bc70" locale={zhCN}>
+      <ConfigProvider primaryColor="#66CCCC" locale={zhCN}>
         <Switch>
           {
             routes.map((item, index) => {

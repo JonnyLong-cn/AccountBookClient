@@ -2,7 +2,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState } from 'React';
 import PropTypes from 'prop-types';
 import { TabBar } from "zarm";
-import s from './style.module.less';
+import s from './style.less';
 import CustomIcon from '../CustomIcon';
 
 const NavBar = ({ showNav = true }) => {
