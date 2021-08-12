@@ -5,5 +5,8 @@ module.exports = {
     '@babel/preset-env',
     // react 语法包，让我们可以使用 React ES6 Class Component 的写法，支持JSX、TSX语法格式
     '@babel/preset-react',
+  ],
+  plugins:[
+    '@babel/plugin-transform-runtime'
   ]
 }

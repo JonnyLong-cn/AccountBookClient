@@ -11,6 +11,7 @@ module.exports = {
   },
   target: 'web',
   devtool: 'eval-source-map',
+  // 新版本的webpack-cli启动命令是: webpack server
   devServer: {
     contentBase: path.join(__dirname, '../dist'),
     // historyApiFallback: true,
