@@ -3,6 +3,7 @@ import React, { useState } from 'React';
 import PropTypes from 'prop-types';
 import { TabBar } from "zarm";
 import s from './style.module.less';
+import CustomIcon from '../CustomIcon';
 
 const NavBar = ({ showNav = true }) => {
   const [activeKey, setActiveKey] = useState(useLocation().pathname);
@@ -19,14 +20,17 @@ const NavBar = ({ showNav = true }) => {
       <TabBar.Item
         itemKey="/"
         title="账单"
+        icon={<CustomIcon type="zhangdan"/>}
       />
       <TabBar.Item
         itemKey="/data"
         title="统计"
+        icon={<CustomIcon type="tongji"/>}
       />
       <TabBar.Item
         itemKey="/user"
         title="用户"
+        icon={<CustomIcon type="wode"/>}
       />
     </TabBar>
   )
