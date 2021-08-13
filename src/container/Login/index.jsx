@@ -3,7 +3,7 @@ import { Cell, Input, Button, Checkbox, Toast } from 'zarm';
 import CustomIcon from '@/components/CustomIcon';
 import s from './style.less';
 // axios
-import axios from 'axios';
+import axios from '@/utils/axios';
 // 类名拼接
 import classNames from 'classnames';
 
@@ -26,14 +26,16 @@ function Login() {
     }
     try {
       if (type === 'login') {
+        console.log('登录测试');
         const { data } = await axios.post('/api/user/login', {
           username,
           password
         });
+        console.log(data)
         localStorage.setItem('token', data.token);
         window.location.href = "/";
       } else {
-        const { data } = await post('/api/user/register', {
+        const { data } = await axios.post('/api/user/register', {
           username,
           password
         });

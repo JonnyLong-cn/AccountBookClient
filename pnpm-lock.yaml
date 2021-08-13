@@ -16,6 +16,7 @@ specifiers:
   less: ^4.1.1
   less-loader: ^10.0.1
   lib-flexible: ^0.3.2
+  moment: ^2.29.1
   postcss: ^8.3.6
   postcss-loader: ^6.1.1
   postcss-pxtorem: ^6.0.0
@@ -32,6 +33,7 @@ dependencies:
   axios: 0.21.1
   classnames: 2.3.1
   lib-flexible: registry.nlark.com/lib-flexible/0.3.2
+  moment: 2.29.1
   postcss: registry.nlark.com/postcss/8.3.6
   postcss-pxtorem: registry.nlark.com/postcss-pxtorem/6.0.0_postcss@8.3.6
   react: registry.nlark.com/react/17.0.2
@@ -1727,6 +1729,10 @@ packages:
     dependencies:
       minimist: 1.2.5
     dev: true
+
+  /moment/2.29.1:
+    resolution: {integrity: sha1-sr52n6MZQL6e7qZGnAdeNQBvo9M=, tarball: moment/download/moment-2.29.1.tgz}
+    dev: false
 
   /ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=, tarball: ms/download/ms-2.0.0.tgz}
