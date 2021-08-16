@@ -35,14 +35,19 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
   };
 
   // 选择类型回调
-  const choseType = (item) => {
-    setActive(item.id)
-    setShow(false)
+  function choseType(item) {
+    setActive(item.id);
+    setShow(false);
     // 父组件传入的 onSelect，为了获取类型
-    onSelect(item)
+    onSelect(item);
   };
 
   return (
+    /* 从底部弹出
+    onMaskClick: 点击遮罩层触发回调函数，将show设置为false
+    destroy: 弹窗关闭后不删除节点
+    mountContainer: 指定Popup挂载的HTML节点,在body上
+    */
     <Popup
       visible={show}
       direction="bottom"
@@ -53,6 +58,7 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
       <div className={s.popupType}>
         <div className={s.header}>
           请选择类型
+          {/* 关闭按钮 */}
           <Icon type="wrong" className={s.cross} onClick={() => setShow(false)} />
         </div>
         <div className={s.content}>

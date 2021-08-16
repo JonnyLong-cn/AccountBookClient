@@ -84,7 +84,7 @@ function Home() {
   }
 
   // 弹窗
-  function toggle() {
+  function typeToggle() {
     return typeRef.current && typeRef.current.show();
   }
 
@@ -92,7 +92,7 @@ function Home() {
     return monthRef.current && monthRef.current.show();
   }
 
-  // 筛选类型
+  // 筛选类型,设置下拉刷新状态、第一页、当前type
   function select(item) {
     setRefreshing(REFRESH_STATE.loading);
     // 触发刷新列表，将分页重制为 1
@@ -114,7 +114,7 @@ function Home() {
           <span className={s.income}>总收入：<b>¥ {totalIncome}</b></span>
         </div>
         <div className={s.typeWrap}>
-          <div className={s.left} onClick={toggle}>
+          <div className={s.left} onClick={typeToggle}>
             <span className={s.title}>{currentSelect.name || '全部类型'} <Icon className={s.arrow} type="arrow-bottom" /></span>
           </div>
           <div className={s.right}>

@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { Popup, DatePicker } from 'zarm';
 import moment from 'moment';
 
+// forwardRef 用于拿到父组件传入的 ref 属性，这样在父组件便能通过 ref 控制子组件。
 const PopupDate = forwardRef(({ onSelect, mode = 'date' }, ref) => {
   const [show, setShow] = useState(false)
   const [now, setNow] = useState(new Date())
 
-  const choseMonth = (item) => {
-    setNow(item)
-    setShow(false)
+  function choseMonth(item) {
+    setNow(item);
+    setShow(false);
     if (mode == 'month') {
       onSelect(moment(new Date(item)).format('YYYY-MM'))
     } else if (mode == 'date') {
@@ -27,6 +28,7 @@ const PopupDate = forwardRef(({ onSelect, mode = 'date' }, ref) => {
       }
     }
   };
+
   return <Popup
     visible={show}
     direction="bottom"
