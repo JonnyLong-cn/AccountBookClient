@@ -40,11 +40,11 @@ function BillItem({ bill }) {
         <div className={s.money}>
           <span>
             <img src="//s.yezgea02.com/1615953405599/zhi%402x.png" alt='支' />
-            <span>¥{expense.toFixed(2)}</span>
+            <span>¥{income.toFixed(2)}</span>
           </span>
           <span>
             <img src="//s.yezgea02.com/1615953405599/shou%402x.png" alt="收" />
-            <span>¥{income.toFixed(2)}</span>
+            <span>¥{expense.toFixed(2)}</span>
           </span>
         </div>
       </div>
@@ -68,8 +68,8 @@ function BillItem({ bill }) {
               </>
             }
             // 收支
-            description={<span style={{ color: item.pay_type == 2 ? 'red' : '#39be77' }}>{`${item.pay_type == 1 ? '-' : '+'}${item.amount}`}</span>}
-            // 时间点
+            description={<span style={{ color: item.pay_type == 2 ? 'red' : '#39be77' }}>{`${item.pay_type == 2 ? '-' : '+'}${item.amount}`}</span>}
+            // 时间点和备注
             help={<div>{moment(new Date(item.date)).format('HH:mm')} {item.remark ? `| ${item.remark}` : ''}</div>}
           ></Cell>
         ))

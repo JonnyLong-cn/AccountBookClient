@@ -1,7 +1,100 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Cell,Button,Modal,Input } from 'zarm';
+
+import {imgUrlTrans} from '@/utils/type.js';
+import axios from '@/utils/axios.js';
+import s from './style.less';
 
 const User = () => {
-  return <div>个人中心</div>
+  const history = useHistory();
+  const [user, setUser] = useState({});
+  const [signature, setSignature] = useState('');
+  const [show, setShow] = useState(false);
+  const [avatar, setAvatar] = useState('');
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  // 获取用户信息
+  const getUserInfo = async () => {
+    const { data } = await axios.get('/api/user/get_userinfo');
+    setUser(data);
+    setAvatar(imgUrlTrans(data.avatar));
+    setAvatar(data.avatar)
+  };
+
+  const confirmSig = async () => {
+    const { data } = await post('/api/user/edit_signature', {
+      signature: signature
+    });
+    setUser(data);
+    setShow(false);
+    Toast.show('修改成功');
+  } ;
+
+  const logout = async () => {
+    localStorage.removeItem('token');
+    history.push('/login');
+  };
+
+  return (
+    <div className={s.user}>
+      <div className={s.head}>
+        <div className={s.info}>
+          <span>昵称：{user.username}</span>
+          <span>
+            <b>{user.signature || '暂无内容'}</b>
+          </span>
+        </div>
+        <img className={s.avatar} style={{ width: 60, height: 60, borderRadius: 8 }} src={avatar} alt="" />
+      </div>
+      <div className={s.content}>
+        <Cell
+          hasArrow
+          title="用户信息修改"
+          onClick={() => history.push('/userinfo')}
+          icon={<img style={{ width: 20, verticalAlign: '-7px' }} src="//s.yezgea02.com/1615974766264/gxqm.png" alt="" />}
+        />
+        <Cell
+          hasArrow
+          title="重制密码"
+          onClick={() => history.push('/account')}
+          icon={<img style={{ width: 20, verticalAlign: '-7px' }} src="//s.yezgea02.com/1615974766264/zhaq.png" alt="" />}
+        />
+        <Cell
+          hasArrow
+          title="关于我们"
+          onClick={() => history.push('/about')}
+          icon={<img style={{ width: 20, verticalAlign: '-7px' }} src="//s.yezgea02.com/1615975178434/lianxi.png" alt="" />}
+        />
+      </div>
+      <Button className={s.logout} block theme="danger" onClick={logout}>退出登录</Button>
+      <Modal
+        visible={show}
+        title="标题"
+        closable
+        onCancel={() => setShow(false)}
+        footer={
+          <Button block theme="primary" onClick={confirmSig}>
+            确认
+          </Button>
+        }
+      >
+        <Input
+          autoHeight
+          showLength
+          maxLength={50}
+          type="text"
+          rows={3}
+          value={signature}
+          placeholder="请输入备注信息"
+          onChange={(val) => setSignature(val)}
+        />
+      </Modal>
+    </div>
+  )
 }
 
 export default User;

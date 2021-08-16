@@ -71,6 +71,7 @@ function Home() {
     };
   };
 
+  // 加载数据
   function loadData() {
     if (page < totalPage) {
       setLoading(LOAD_STATE.loading);
@@ -148,8 +149,11 @@ function Home() {
         }
       </div>
       <div className={s.add} onClick={addToggle}><CustomIcon type='tianjia' /></div>
+      {/* 类型弹窗 */}
       <PopupType ref={typeRef} onSelect={select} />
+      {/* 日期弹窗 */}
       <PopupDate ref={monthRef} mode="month" onSelect={selectMonth} />
+      {/* 增加账单弹窗 */}
       <PopupAddBill ref={addRef} onReload={refreshData} />
     </div>
   )
