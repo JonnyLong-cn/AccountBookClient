@@ -26,14 +26,12 @@ function Login() {
     }
     try {
       if (type === 'login') {
-        console.log('登录测试');
         const { data } = await axios.post('/api/user/login', {
           username,
           password
         });
-        console.log(data)
         localStorage.setItem('token', data.token);
-        window.location.href = "/";
+        window.location.hash = "/";
       } else {
         const { data } = await axios.post('/api/user/register', {
           username,
@@ -42,10 +40,9 @@ function Login() {
         Toast.show('注册成功');
         setType('login');
       }
-
     } catch (err) {
       console.log(err);
-      Toast.show(err.msg);
+      Toast.show('登录账户或密码错误');
     }
   }
 
