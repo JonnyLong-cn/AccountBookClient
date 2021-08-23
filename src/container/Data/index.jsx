@@ -12,19 +12,28 @@ let proportionChart = null;
 
 function Data() {
   const monthRef = useRef();
+  // 当前月份，格式为YYYY-MM
   const [currentMonth, setCurrentMonth] = useState(moment().format('YYYY-MM'));
-  // 收支
-  const [totalType, setTotalType] = useState('expense'); // 收入或支出类型
-  const [totalExpense, setTotalExpense] = useState(0); // 总支出
-  const [totalIncome, setTotalIncome] = useState(0); // 总收入
-  const [expenseData, setExpenseData] = useState([]); // 支出数据
-  const [incomeData, setIncomeData] = useState([]); // 收入数据
+  // 收支类型
+  const [totalType, setTotalType] = useState('expense');
+  // 总支出
+  const [totalExpense, setTotalExpense] = useState(0);
+  // 总收入
+  const [totalIncome, setTotalIncome] = useState(0);
+  // 支出数据
+  const [expenseData, setExpenseData] = useState([]);
+  // 收入数据
+  const [incomeData, setIncomeData] = useState([]);
   // 饼图类型
   const [pieType, setPieType] = useState('expense');
 
   useEffect(() => {
     getData();
   }, [currentMonth]);
+
+  useEffect(()=>{
+    setPieChart(expenseData);
+  },[expenseData]);
 
   async function getData() {
     const { data } = await axios.get(`/api/bill/data?date=${currentMonth}`);
@@ -61,15 +70,13 @@ function Data() {
 
   // 绘制饼图方法
   function setPieChart(data) {
+    const proportion = document.getElementById('proportion');
     if (window.echarts) {
-      proportionChart = echarts.init(document.getElementById('proportion'));
+      proportionChart = echarts.init(proportion);
       proportionChart.setOption({
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)',
-          // textStyle: {
-          //   fontSize: 24
-          // }
         },
         // 图例
         legend: {
@@ -106,10 +113,11 @@ function Data() {
           <span>{currentMonth}</span>
           <Icon className={s.date} type="date" />
         </div>
-        <div className={s.title}>共支出</div>
-        <div className={s.expense}>¥{totalExpense}</div>
-        <div className={s.income}>共收入¥{totalIncome}</div>
+        <div className={s.title}>余额</div>
+        <div className={s.expense}>¥{totalIncome - totalExpense}</div>
+        <div className={s.income}>共支出 ¥{totalExpense}</div>
       </div>
+      {/* 收支显示部分结构 */}
       <div className={s.structure}>
         <div className={s.head}>
           <span className={s.title}>收支构成</span>
@@ -133,28 +141,31 @@ function Data() {
                 <div className={s.progress}>¥{Number(item.number).toFixed(2) || 0}</div>
               </div>
               <div className={s.right}>
+                {/* 进度条，显示收入构成比例 */}
                 <div className={s.percent}>
                   <Progress
                     shape="line"
                     percent={Number((item.number / Number(totalType == 'expense' ? totalExpense : totalIncome)) * 100).toFixed(2)}
-                    theme='primary'
+                    theme={totalType == 'expense' ? 'warning' : 'primary'}
                   />
                 </div>
               </div>
             </div>)
           }
         </div>
-        <div className={s.proportion}>
-          <div className={s.head}>
-            <span className={s.title}>收支构成</span>
-            <div className={s.tab}>
-              <span onClick={() => changePieType('expense')} className={classNames({ [s.expense]: true, [s.active]: pieType === 'expense' })}>支出</span>
-              <span onClick={() => changePieType('income')} className={classNames({ [s.income]: true, [s.active]: pieType === 'income' })}>收入</span>
-            </div>
+        {/* 收支统计图 */}
+        {/* <div className={s.proportion}> */}
+        <div className={s.head}>
+          <span className={s.title}>收支构成</span>
+          <div className={s.tab}>
+            <span onClick={() => changePieType('expense')} className={classNames({ [s.expense]: true, [s.active]: pieType === 'expense' })}>支出</span>
+            <span onClick={() => changePieType('income')} className={classNames({ [s.income]: true, [s.active]: pieType === 'income' })}>收入</span>
           </div>
-          <div id="proportion"></div>
         </div>
+        <div id="proportion" className={s.proportion}></div>
       </div>
+      {/* </div> */}
+      {/* 日期弹窗 */}
       <PopupDate ref={monthRef} mode="month" onSelect={selectMonth} />
     </div>
   )
